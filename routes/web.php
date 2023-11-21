@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
+})->name('home')->middleware('auth');
+
+Route::get('/login', function () {
+    if (Auth::user()) {
+        return redirect()->route('home');
+    }
+    return view('login', []);
 });
 
 require __DIR__.'/auth.php';
