@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,9 @@ Route::get('/login', function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/product/category', [ProductCategoryController::class, 'index'])
+        ->name('product.category');
+})->middleware('auth');
